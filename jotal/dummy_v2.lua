@@ -8,30 +8,22 @@ end
 
 -- Main bot function
 function bot_main(me)
-    local me_pos = me:pos()
-    --returns a vec type with your player position- Update cooldowns
-        for i = 1, 3 do
-            if cooldowns[i] > 0 then
-                cooldowns[i] = cooldowns[i] - 1
-            end
-        end
-
-    -- Find the closest visible enemy
-    local closest_enemy = nil
-    local min_distance = math.huge
-    for _, player in ipairs(me:visible()) do
-        local dist = vec.distance(me_pos, player:pos())
-        if dist < min_distance then
-            min_distance = dist
-            closest_enemy = player
+    
+    local me_pos = me:pos() -- Returns a vec type with your player position
+    
+    -- Update cooldowns
+    for i = 1, 3 do
+        if cooldowns[i] > 0 then
+            cooldowns[i] = cooldowns[i] - 1
         end
     end
 
-    -- Set target to closest visible enemy
-    local target = closest_enemy
+    -- Set target to closest visible enemy PLAYER NOT BULLET
+    local closest_enemy = closest_enemy_player(me)
+    local target = closest_enemy[1]
+    local min_distance = closest_enemy[2]
 
     if target then
-
         -- testing 
         if im_closest(target, me) then
             print("Im the closest")
@@ -55,6 +47,23 @@ function bot_main(me)
     end
 end
 
+function closest_enemy_player(my_player)
+    -- Find the closest visible enemy
+    -- ENEMY PLAYER
+    local closest_enemy = nil
+    local min_distance = math.huge
+    for _, player in ipairs(my_player:visible()) do
+        if player:type() == "player" then -- ADDED
+            local dist = vec.distance(me_pos, player:pos())
+            if dist < min_distance then
+                min_distance = dist
+                closest_enemy = player
+            end
+        end
+    end
+    return {closest_enemy, min_distance}
+end
+
 -- [[
 --      If I'm the closest player, shoot towards his direction
 --      Else, try to predict where he's moving to and shoot
@@ -64,29 +73,15 @@ end
 function im_closest(target_player, my_player)
     local my_id = my_player:id()
     local tg_id = target_player:id()
-
-    local my_distance = vec.distance(my_player:pos(), target_player:pos())
-    local min_distance2 = math.huge
-    
+    local cl_id = my_id
+    local dist_to_target = vec.distance(my_player:pos(), target_player:pos())
     for _, player in ipairs(my_player:visible()) do
-        if player:type() == "player" then
-            local pl_id = player:id()
-            if (pl_id ~= my_id) and (pl_id ~= tg_id) then 
-                local dist = vec.distance(target_player:pos(), player:pos())
-    
-                print("Curr PLAYER :", player)
-                print("Curr TYPE   :", player:type())
-                print("Curr DIST   :", dist)
-                
-                if dist < min_distance2 then
-                    min_distance2 = dist
-                end
+        if player:type() == "player" and player:id() ~= tg_id and player:id() ~= my_id then
+            if vec.distance(target_player:pos(), player:pos()) <= dist_to_target then
+                cl_id = player:id()
             end
         end
     end
-    
-    print("MY  dist :", my_distance)
-    print("MIN dist :", min_distance2)
-
-    return my_distance <= min_distance2
+    return my_id == cl_id
 end
+
