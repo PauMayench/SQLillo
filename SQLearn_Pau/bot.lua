@@ -26,7 +26,7 @@ function bot_main(me)
     end
     -- Set target to closest visible enemy
     local target = closest_enemy
-
+--[[
     if target then
         local direction = target:pos():sub(me_pos)
         -- If target is within melee range and melee attack is not on cooldown, use melee at
@@ -41,4 +41,6 @@ function bot_main(me)
         -- Move towards the target
         me:move(direction)
     end
+    ]]
+
 end

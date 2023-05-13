@@ -8,3 +8,6 @@ https://royale.sqlillo.com/#/carouselle
 Lua: https://devhints.io/lua
 
 
+## Local ##
+
+Create a file with your bot code (for example bot.lua ) and then run ./mmz-bin bot.lua bot.lua bot.lu
