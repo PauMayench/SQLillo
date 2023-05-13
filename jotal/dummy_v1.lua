@@ -1,10 +1,11 @@
-
 -- Global variables
 local target = nil
 local cooldowns = {0, 0, 0}
+
 -- Initialize bot
 function bot_init(me)
 end
+
 -- Main bot function
 function bot_main(me)
     local me_pos = me:pos()
@@ -14,6 +15,7 @@ function bot_main(me)
                 cooldowns[i] = cooldowns[i] - 1
             end
         end
+
     -- Find the closest visible enemy
     local closest_enemy = nil
     local min_distance = math.huge
@@ -24,6 +26,7 @@ function bot_main(me)
             closest_enemy = player
         end
     end
+
     -- Set target to closest visible enemy
     local target = closest_enemy
 
