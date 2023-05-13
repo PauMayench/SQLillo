@@ -10,9 +10,9 @@ end
 function bot_main(me)
     
     -- Set target to closest visible enemy PLAYER NOT BULLET
-    local closest_enemy = closest_enemy_player(me)
-    local target = closest_enemy[1]
-    local t_distance = closest_enemy[2]
+    local aux = closest_enemy_player(me)
+    local target     = aux[1]
+    local t_distance = aux[2]
 
     if target then
         local aux = attack_vector(t_distance, target, me)

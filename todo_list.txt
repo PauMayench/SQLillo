@@ -1,0 +1,29 @@
+Fer que no vagi al centre, sino a un lloc random aprop
+
+cod
+
+fer que s'aparti (rodeji) enemics
+
+fer dash i navajeo si te molta vida i hi ha algu a radi entre 2 i 4
+
+disparos amb predicts
+
+
+predict missil 1 
+
+
+### Algoritme Adaptatiu ###
+
+-> Adaptar funcionament de l'algoritme segons la fase del joc:
+    ~ Fases inicials = Radi COD gran => Jugadors dispersos
+        ~~ Esquivar bales llunyanes
+        ~~ Disparar a distancia
+        ~~ Dirigir jugador al centre
+
+    ~ Fases intermitges
+        ~~
+        ~~
+
+    ~ Fases finals = Radi COD mínim => Jugadors concentrats
+        ~~ Dashes + Melee attacks
+
