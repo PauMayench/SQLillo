@@ -1,0 +1,8 @@
+Factors melee attack:
+
+    VIDA
+    COOLDOWN
+    DISTANCIA TARGET
+
+
+
